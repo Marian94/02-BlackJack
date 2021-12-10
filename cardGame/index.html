@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Blackjack Game</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <h2>Dealers Cards</h2>
+    <div id="deckDealerStart"></div>
+    <div id="deckDealer"></div>
+    <p id="dealerScore"></p>
+    <h2>My Cards</h2>
+    <div id="myDeck"></div>
+    <p id="myScore"></p>
+    <div id="buttons">
+      <button onClick="hitCard()">HIT</button>
+      <button onClick="stand()">Stand</button>
+    </div>
+    <button id="playAgainButton" onClick="playAgain()">Play Again</button>
+    <script src="./script.js"></script>
+  </body>
+</html>
