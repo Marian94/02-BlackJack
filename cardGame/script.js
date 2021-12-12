@@ -68,14 +68,12 @@ function hitCard() {
 
 //Stop drawing card
 function stand() {
-  document.getElementById("deckDealerStart").innerHTML = "";
-  document.getElementById("dealerScore").style.visibility = "visible";
-  document.getElementById("deckDealer").style.visibility = "visible";
-  document.getElementById("playAgainButton").style.visibility = "visible";
-  document.getElementById("buttons").style.visibility = "hidden";
-  document.getElementById(
-    "dealerScore"
-  ).innerText = `Dealer Score: ${dealerScore}`;
+  $("#deckDealerStart").html("");
+  $("#buttons").hide();
+  $("#dealerScore").show();
+  $("#deckDealer").show();
+  $("#playAgainButton").show();
+  $("#dealerScore").text(`Dealer Score: ${dealerScore}`);
 
   if (myScore > 21) {
     alert("YOU BUSTED!");
@@ -118,16 +116,12 @@ function getScore(cards) {
 
 //Render the cards
 function renderCards({ Suit, Value }) {
-  let card = document.createElement("div");
-  let value = document.createElement("div");
-  let suit = document.createElement("div");
-  card.className = "card";
-  value.className = "value";
-  suit.className = "suit " + Suit;
-
-  value.innerHTML = Value;
-  card.appendChild(value);
-  card.appendChild(suit);
+  const card = $(`<div class="card">`);
+  const value = $(`<div class="value">`);
+  const suit = $(`<div class="suit ${Suit}">`);
+  card.text(`${Value}`);
+  card.append(value);
+  card.append(suit);
 
   return card;
 }
@@ -138,11 +132,11 @@ function pullCards(deckPlayer, player = 1) {
   deckPlayer.push(card);
   if (player) {
     myScore = getScore(deckPlayer);
-    document.getElementById("myDeck").appendChild(renderCards(card));
-    document.getElementById("myScore").innerText = `My Score: ${myScore}`;
+    $("#myDeck").append(renderCards(card));
+    $("#myScore").text(`My Score: ${myScore}`);
   } else {
     dealerScore = getScore(deckPlayer);
-    document.getElementById("deckDealer").appendChild(renderCards(card));
+    $("#deckDealer").append(renderCards(card));
   }
 }
 
@@ -151,14 +145,14 @@ function dealersPlay() {
   while (dealerScore < 17) {
     pullCards(dealerCards, 0);
   }
-  let card = document.createElement("div");
-  card.className = "cardHidden";
-  document.getElementById("deckDealerStart").appendChild(card);
-  document
-    .getElementById("deckDealerStart")
-    .appendChild(renderCards(dealerCards[dealerCards.length - 1]));
-  document.getElementById("deckDealerStart").style.visibility = "visible";
+  const card = $(`<div class="cardHidden">`);
+  $("#deckDealerStart").append(card);
+  $("#deckDealerStart").append(
+    renderCards(dealerCards[dealerCards.length - 1])
+  );
+  $("#deckDealerStart").show();
 }
+
 //Reset the game
 function playAgain() {
   deckTemp = deck;
@@ -166,10 +160,10 @@ function playAgain() {
   myCards = [];
   myScore = 0;
   dealerScore = 0;
-  document.getElementById("myDeck").innerHTML = "";
-  document.getElementById("deckDealer").innerHTML = "";
-  document.getElementById("deckDealerStart").innerHTML = "";
-  document.getElementById("buttons").style.visibility = "visible";
+  $("#myDeck").html("");
+  $("#deckDealer").html("");
+  $("#deckDealerStart").html("");
+  $("#buttons").show();
 
   renderGame();
 }
@@ -180,9 +174,9 @@ function renderGame() {
   pullCards(myCards, 1);
   pullCards(myCards, 1);
   dealersPlay();
-  document.getElementById("deckDealer").style.visibility = "hidden";
-  document.getElementById("dealerScore").style.visibility = "hidden";
-  document.getElementById("playAgainButton").style.visibility = "hidden";
+  $("#deckDealer").hide();
+  $("#dealerScore").hide();
+  $("#playAgainButton").hide();
 }
 
 renderGame();
