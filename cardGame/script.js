@@ -155,7 +155,7 @@ function dealersPlay() {
 
 //Reset the game
 function playAgain() {
-  deckTemp = deck;
+  deckTemp = [...deck];
   dealerCards = [];
   myCards = [];
   myScore = 0;
